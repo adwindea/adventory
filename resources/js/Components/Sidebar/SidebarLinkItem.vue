@@ -12,7 +12,20 @@
         </template>
     </SidebarLink>
 
-    <SidebarCollapsible title="Dropdown">
+    <SidebarLink
+        title="Products"
+        :href="route('products')"
+        :active="route().current('products')"
+    >
+        <template #icon>
+            <DashboardIcon
+                class="flex-shrink-0 w-6 h-6"
+                aria-hidden="true"
+            />
+        </template>
+    </SidebarLink>
+
+    <!-- <SidebarCollapsible title="Dropdown">
         <SidebarCollapsibleItem href="#" title="Link 1" :active="false" />
         <SidebarCollapsibleItem href="#" title="Link 2" :active="true" />
         <SidebarCollapsibleItem href="#" title="Link 3" :active="false" />
@@ -21,7 +34,7 @@
         <SidebarCollapsibleItem href="#" title="Link 1" :active="false" />
         <SidebarCollapsibleItem href="#" title="Link 2" :active="true" />
         <SidebarCollapsibleItem href="#" title="Link 3" :active="false" />
-    </SidebarCollapsible>
+    </SidebarCollapsible> -->
 
 </template>
 

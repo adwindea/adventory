@@ -32,6 +32,7 @@
             </Button>
             <Button
                 iconOnly
+                :data-toggle-theme="[isDark ? 'dark' : 'light']"
                 variant="secondary"
                 type="button"
                 @click="toggleDarkMode"
@@ -60,6 +61,7 @@
         <div class="flex items-center gap-2">
             <Button
                 iconOnly
+                :data-toggle-theme="[isDark ? 'dark' : 'light']"
                 variant="secondary"
                 type="button"
                 @click="toggleDarkMode"
@@ -230,7 +232,7 @@
 </template>
 
 <script setup>
-    import { onMounted, onUnmounted } from 'vue'
+    import { onMounted, onUpdated, onUnmounted } from 'vue'
     import { Link } from '@inertiajs/inertia-vue3'
     import { Inertia } from '@inertiajs/inertia'
     import { useFullscreen } from '@vueuse/core'
@@ -254,10 +256,12 @@
     import Button from '@/Components/Button'
     import Dropdown from '@/Components/Dropdown'
     import DropdownLink from '@/Components/DropdownLink'
+    import { themeChange } from 'theme-change'
 
     const { isFullscreen, toggle: toggleFullScreen } = useFullscreen()
 
     onMounted(() => {
+        themeChange(false)
         document.addEventListener('scroll', handleScroll)
     })
     onUnmounted(() => {
