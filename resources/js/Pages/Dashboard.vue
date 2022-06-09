@@ -1,0 +1,26 @@
+<template>
+    <AppLayout title="Dashboard">
+        <template #header>
+            <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <h2 class="text-xl font-semibold leading-tight">
+                    Dashboard
+                </h2>
+            </div>
+        </template>
+
+        <!-- <div class="py-1">
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8"> -->
+                <!-- <div class="overflow-hidden shadow-xl sm:rounded-lg"> -->
+                    Iki dashboard
+                <!-- </div> -->
+            <!-- </div>
+        </div> -->
+    </AppLayout>
+</template>
+
+<script setup>
+import AppLayout from '@/Layouts/AppLayout'
+import Welcome from '@/Components/Welcome'
+import Button from "@/Components/Button";
+import { GithubIcon } from "@/Components/Icons/Brands";
+</script>
