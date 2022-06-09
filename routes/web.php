@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,8 +34,8 @@ Route::middleware([
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    // Route::prefix('product')->group(function () {
-
-    // });
+    Route::prefix('product')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('products');
+    });
 
 });
