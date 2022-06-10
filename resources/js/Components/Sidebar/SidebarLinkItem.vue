@@ -14,8 +14,8 @@
 
     <SidebarLink
         title="Products"
-        :href="route('products')"
-        :active="route().current('products')"
+        :href="route('product')"
+        :active="route().current('product')"
     >
         <template #icon>
             <DashboardIcon

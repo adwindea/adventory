@@ -35,7 +35,7 @@ Route::middleware([
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::prefix('product')->group(function () {
-        Route::get('/', [ProductController::class, 'index'])->name('products');
+        Route::get('/', [ProductController::class, 'index'])->name('product');
     });
 
 });
