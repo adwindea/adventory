@@ -16,7 +16,8 @@ class ProductController extends Controller
             return $query->where('name', 'LIKE', '%'.$request->search.'%')
                 ->orWhere('sku', 'LIKE', '%'.$request->search.'%');
         })
-        ->paginate(10)
+        ->paginate(2)
+        ->onEachSide(-1)
         ->withQueryString()
         ->through(fn ($product) => [
             'xid' => $product->xid,
