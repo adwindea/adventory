@@ -9,7 +9,7 @@
         </template>
 
         <div class="card w-full bg-white dark:bg-dark-eval-1 shadow-xl">
-            <div class="card-body overflow-x-auto">
+            <div class="card-body">
                 <div class="card-title justify-start">
                     <input type="text" placeholder="Type to search" v-model="form.search" class="input input-bordered w-full max-w-xs" />
                     <!-- <div class="dropdown dropdown-right">
@@ -22,47 +22,49 @@
                     <button class="btn px-2" @click="reset">Reset</button>
                 </div>
 
-                <table class="table w-full">
-                    <thead>
-                        <tr>
-                            <th class="text-center" @click="setOrderBy('sku')">SKU
-                                <span class="float-right">
-                                    <faicon icon="arrow-up" v-if="sort=='sku' && direction=='asc'"/>
-                                    <faicon icon="arrow-down" v-if="sort=='sku' && direction=='desc'"/>
-                                </span>
-                            </th>
-                            <th @click="setOrderBy('name')">Name
-                                <span class="float-right">
-                                    <faicon icon="arrow-up" v-if="sort=='name' && direction=='asc'"/>
-                                    <faicon icon="arrow-down" v-if="sort=='name' && direction=='desc'"/>
-                                </span>
-                            </th>
-                            <th class="text-center" @click="setOrderBy('quantity')">Quantity
-                                <span class="float-right">
-                                    <faicon icon="arrow-up" v-if="sort=='quantity' && direction=='asc'"/>
-                                    <faicon icon="arrow-down" v-if="sort=='quantity' && direction=='desc'"/>
-                                </span>
-                            </th>
-                            <th class="text-center" @click="setOrderBy('price')">Price
-                                <span class="float-right">
-                                    <faicon icon="arrow-up" v-if="sort=='price' && direction=='asc'"/>
-                                    <faicon icon="arrow-down" v-if="sort=='price' && direction=='desc'"/>
-                                </span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="product in products.data" :key="product.xid">
-                            <td class="text-center">{{product.sku}}</td>
-                            <td>{{product.name}}</td>
-                            <td class="text-center">{{product.quantity}}</td>
-                            <td class="text-center">{{product.price}}</td>
-                        </tr>
-                        <tr v-if="products.data.length === 0">
-                            <td class="text-center" colspan="4">No products found.</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="overflow-x-auto">
+                    <table class="table w-full">
+                        <thead>
+                            <tr>
+                                <th class="text-center" @click="setOrderBy('sku')">SKU
+                                    <span class="float-right">
+                                        <faicon icon="arrow-up" v-if="sort=='sku' && direction=='asc'"/>
+                                        <faicon icon="arrow-down" v-if="sort=='sku' && direction=='desc'"/>
+                                    </span>
+                                </th>
+                                <th @click="setOrderBy('name')">Name
+                                    <span class="float-right">
+                                        <faicon icon="arrow-up" v-if="sort=='name' && direction=='asc'"/>
+                                        <faicon icon="arrow-down" v-if="sort=='name' && direction=='desc'"/>
+                                    </span>
+                                </th>
+                                <th class="text-center" @click="setOrderBy('quantity')">Quantity
+                                    <span class="float-right">
+                                        <faicon icon="arrow-up" v-if="sort=='quantity' && direction=='asc'"/>
+                                        <faicon icon="arrow-down" v-if="sort=='quantity' && direction=='desc'"/>
+                                    </span>
+                                </th>
+                                <th class="text-center" @click="setOrderBy('price')">Price
+                                    <span class="float-right">
+                                        <faicon icon="arrow-up" v-if="sort=='price' && direction=='asc'"/>
+                                        <faicon icon="arrow-down" v-if="sort=='price' && direction=='desc'"/>
+                                    </span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="product in products.data" :key="product.xid">
+                                <td class="text-center">{{product.sku}}</td>
+                                <td>{{product.name}}</td>
+                                <td class="text-center">{{product.quantity}}</td>
+                                <td class="text-center">{{product.price}}</td>
+                            </tr>
+                            <tr v-if="products.data.length === 0">
+                                <td class="text-center" colspan="4">No products found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <div class="card-actions justify-between">
                     <div class="btn-group">

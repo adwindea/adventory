@@ -20,7 +20,7 @@
 
             <!-- Page Heading -->
             <header v-if="$slots.header">
-                <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="px-4 py-6 max-w-full sm:px-6 lg:px-8">
                     <slot name="header"></slot>
                 </div>
             </header>
