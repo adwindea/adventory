@@ -12,6 +12,35 @@ class ProductController extends Controller
         (empty($request->sort)) ? $request->sort = 'name' : '';
         (empty($request->direction)) ? $request->direction = 'asc' : '';
         (empty($request->perPage)) ? $request->perPage = 10 : '';
+
+        $tableHeader = [
+            [
+                'text' => 'No',
+                'value' => 'no',
+                'class' => 'text-center',
+            ],[
+                'text' => 'SKU',
+                'value' => 'sku',
+                'sortable'=> true,
+                'class' => 'text-center',
+            ],[
+                'text' => 'Name',
+                'value' => 'name',
+                'sortable'=> true,
+                'class' => 'text-center',
+            ],[
+                'text' => 'Quantity',
+                'value' => 'quantity',
+                'sortable'=> true,
+                'class' => 'text-center',
+            ],[
+                'text' => 'Price',
+                'value' => 'price',
+                'sortable'=> true,
+                'class' => 'text-center',
+            ]
+        ];
+
         $products = Product::orderBy($request->sort, $request->direction)
         ->when(!empty($request->search), function ($query) use ($request){
             return $query->where('name', 'LIKE', '%'.$request->search.'%')
@@ -27,6 +56,7 @@ class ProductController extends Controller
             'quantity' => decToCur($product->quantity),
             'price' => decToCur($product->price),
         ]);
+
         return Inertia::render('Product/Products', [
             'filters' => [
                 'search' => $request->form,
@@ -34,6 +64,7 @@ class ProductController extends Controller
                 'sort' => $request->sort,
                 'direction' => $request->direction
             ],
+            'tableHeader' => $tableHeader,
             'products' => $products
         ]);
     }

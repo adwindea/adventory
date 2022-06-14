@@ -10,6 +10,9 @@
 
         <div class="card w-full bg-white dark:bg-dark-eval-1 shadow-xl">
             <div class="card-body">
+                <Table :header="tableHeader" :filter="form" :products="products"></Table>
+            </div>
+            <div class="card-body">
                 <div class="card-title flex-wrap justify-between">
                     <div class="flex-wrap w-full max-w-lg">
                         <input type="text" placeholder="Type to search" v-model="form.search" class="input input-bordered w-full max-w-xs mr-2 mb-2" />
@@ -38,7 +41,7 @@
                     </div>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="table w-full">
+                    <!-- <table class="table w-full">
                         <thead>
                             <tr>
                                 <th class="text-center">No</th>
@@ -80,7 +83,7 @@
                                 <td class="text-center" colspan="5">No products found.</td>
                             </tr>
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
 
                 <div class="card-actions items-center justify-between">
@@ -100,6 +103,7 @@
 </template>
 
 <script>
+import Table from '@/Components/Table'
 import throttle from 'lodash/throttle'
 import pickBy from 'lodash/pickBy'
 import mapValues from 'lodash/mapValues'
@@ -108,11 +112,13 @@ import { Link } from '@inertiajs/inertia-vue3'
 export default {
     components: {
         Link,
+        Table,
     },
     // layout: AppLayout,
     props: {
         filters: Object,
         products: Array,
+        tableHeader: Object,
     },
     data() {
         return {
@@ -134,16 +140,16 @@ export default {
         },
     },
     methods: {
-        setOrderBy(orderBy) {
-            this.form.direction = this.form.direction == 'asc' ? 'desc' : 'asc'
-            this.form.sort = orderBy
-            // this.$inertia.get(route('product'), {
-            //     'sort': orderBy,
-            //     'direction': this.direction
-            // }, {
-            //     preserveState: true
-            // })
-        },
+        // setOrderBy(orderBy) {
+        //     this.form.direction = this.form.direction == 'asc' ? 'desc' : 'asc'
+        //     this.form.sort = orderBy
+        //     // this.$inertia.get(route('product'), {
+        //     //     'sort': orderBy,
+        //     //     'direction': this.direction
+        //     // }, {
+        //     //     preserveState: true
+        //     // })
+        // },
         reset() {
             this.form = mapValues(this.form, () => null)
             this.form.perPage = this.filters.perPage
