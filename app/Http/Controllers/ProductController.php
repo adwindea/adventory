@@ -15,10 +15,6 @@ class ProductController extends Controller
 
         $tableHeader = [
             [
-                'text' => 'No',
-                'value' => 'no',
-                'class' => 'text-center',
-            ],[
                 'text' => 'SKU',
                 'value' => 'sku',
                 'sortable'=> true,
@@ -38,6 +34,17 @@ class ProductController extends Controller
                 'value' => 'price',
                 'sortable'=> true,
                 'class' => 'text-center',
+            ]
+        ];
+
+        $customFilter = [
+            [
+                'title' => 'Name',
+                'type' => 'select',
+                'options' => [
+                    ['text' => 'Barang Baru', 'value' => 'Barang Baru'],
+                    ['text' => 'Tes Barang', 'value' => 'Tes Barang'],
+                ]
             ]
         ];
 
@@ -65,7 +72,8 @@ class ProductController extends Controller
                 'direction' => $request->direction
             ],
             'tableHeader' => $tableHeader,
-            'products' => $products
+            'customFilter' => $customFilter,
+            'products' => $products,
         ]);
     }
 
