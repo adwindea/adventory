@@ -3,7 +3,7 @@
         <div class="flex-wrap w-full max-w-lg">
             <input type="text" placeholder="Type to search" v-model="form.search" class="input input-bordered w-full max-w-xs mr-2 mb-2" />
             <div v-if="customFilter !== undefined" class="dropdown dropdown-right">
-                <label tabindex="0" class="btn mr-2">Filter</label>
+                <label tabindex="0" class="btn btn-primary mr-2">Filter</label>
                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
                     <li v-for="custom in customFilter" :key="custom">
                         <select v-if="custom.type == 'select'" class="select select-bordered w-full max-w-xs" :placeholder="custom.title">
@@ -15,7 +15,7 @@
                     </li>
                 </ul>
             </div>
-            <button class="btn" @click="reset">Reset</button>
+            <button class="btn btn-ghost" @click="reset">Reset</button>
         </div>
         <div class="flex w-full max-w-xs items-center md:justify-end justify-between">
             <div class="w-3/8">
@@ -59,7 +59,7 @@
         <span>Found {{products.total}} data.</span>
         <div class="btn-group">
             <Link v-for="paging in products.links" :href="paging.url" :key="paging.label"
-                class="btn"
+                class="btn btn-ghost"
                 :class="{'btn-active':paging.active}"
                 v-html="paging.label"
             ></Link>
