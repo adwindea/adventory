@@ -2,16 +2,23 @@
     <div class="card-title flex-wrap justify-between">
         <div class="flex-wrap w-full max-w-lg">
             <input type="text" placeholder="Type to search" v-model="form.search" class="input input-bordered w-full max-w-xs mr-2 mb-2" />
-            <div v-if="customFilter !== undefined" class="dropdown dropdown-right">
+            <div v-if="customFilter !== undefined" class="dropdown">
                 <label tabindex="0" class="btn btn-primary mr-2">Filter</label>
-                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-72">
                     <li v-for="custom in customFilter" :key="custom">
-                        <select v-if="custom.type == 'select'" class="select select-bordered w-full max-w-xs" :placeholder="custom.title">
+                        <!-- <select v-if="custom.type == 'select'" class="select select-bordered w-full max-w-xs" :placeholder="custom.title">
                             <option value=""></option>
                             <option v-for="option in custom.options" :key="option" :value="option.value">
                                 {{option.text}}
                             </option>
-                        </select>
+                        </select> -->
+                        <TRichSelect
+                            :options="custom.options"
+                            :placeholder="custom.title"
+                            multiple
+                            clearable
+                        >
+                        </TRichSelect>
                     </li>
                 </ul>
             </div>
@@ -72,11 +79,12 @@ import { Link } from '@inertiajs/inertia-vue3'
 import throttle from 'lodash/throttle'
 import pickBy from 'lodash/pickBy'
 import mapValues from 'lodash/mapValues'
-
+import { TRichSelect } from '@variantjs/vue'
 
 export default {
     components:{
         Link,
+        TRichSelect,
     },
 
     props: {
