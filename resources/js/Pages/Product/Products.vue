@@ -10,7 +10,7 @@
 
         <div class="card w-full bg-white dark:bg-dark-eval-1 shadow-xl">
             <div class="card-body">
-                <Table :header="tableHeader" :filters="filters" :products="products" :customFilter="customFilter" :dest="route(route().current())"></Table>
+                <Table :header="tableHeader" :filters="filters" :filtering="filtering" :products="products" :customFilter="customFilter" :dest="route(route().current())"></Table>
             </div>
         </div>
 
@@ -27,6 +27,7 @@ export default {
     // layout: AppLayout,
     props: {
         filters: Object,
+        filtering: Object,
         products: Array,
         tableHeader: Object,
         customFilter: Object,

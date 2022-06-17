@@ -13,10 +13,14 @@
                             </option>
                         </select> -->
                         <TRichSelect
+                            v-if="custom.type == 'select'"
                             :options="custom.options"
                             :placeholder="custom.title"
+                            minimumResultsForSearch=10
                             multiple
                             clearable
+                            v-model="filterings[custom.key]"
+                            @blur="reloadTable"
                         >
                         </TRichSelect>
                     </li>
@@ -78,6 +82,7 @@
 import { Link } from '@inertiajs/inertia-vue3'
 import throttle from 'lodash/throttle'
 import pickBy from 'lodash/pickBy'
+import set from 'lodash/set'
 import mapValues from 'lodash/mapValues'
 import { TRichSelect } from '@variantjs/vue'
 
@@ -90,6 +95,7 @@ export default {
     props: {
         header: Array,
         filters: Object,
+        filtering: Object,
         products: Object,
         dest: String,
         customFilter: Array,
@@ -104,6 +110,7 @@ export default {
                 sort: this.filters.sort,
                 perPage: this.filters.perPage,
             },
+            filterings:this.filtering,
         }
     },
 
@@ -111,12 +118,15 @@ export default {
         form: {
             deep: true,
             handler: throttle(function () {
-                this.$inertia.get(this.dest, pickBy(this.form), { preserveState: true })
+                this.reloadTable();
             }, 150),
         },
     },
 
     methods: {
+        reloadTable(){
+            this.$inertia.get(this.dest, set(pickBy(this.form), 'filter', pickBy(this.filterings)), { preserveState: true })
+        },
         setOrderBy(orderBy){
             this.form.direction = this.form.direction == 'asc' ? 'desc' : 'asc'
             this.form.sort = orderBy

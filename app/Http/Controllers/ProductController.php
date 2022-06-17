@@ -9,9 +9,6 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     function index(Request $request){
-        (empty($request->sort)) ? $request->sort = 'name' : '';
-        (empty($request->direction)) ? $request->direction = 'asc' : '';
-        (empty($request->perPage)) ? $request->perPage = 10 : '';
 
         $tableHeader = [
             [
@@ -40,6 +37,7 @@ class ProductController extends Controller
         $customFilter = [
             [
                 'title' => 'Name',
+                'key' => 'name',
                 'type' => 'select',
                 'options' => [
                     ['text' => 'Barang Baru', 'value' => 'Barang Baru'],
@@ -48,12 +46,29 @@ class ProductController extends Controller
             ]
         ];
 
+        $defaultFilter = new \stdClass();
+        if(!empty($customFilter)){
+            foreach($customFilter as $filter){
+                $defaultFilter->{$filter['key']} = [];
+            }
+        }
+
+        (empty($request->sort)) ? $request->sort = 'name' : '';
+        (empty($request->direction)) ? $request->direction = 'asc' : '';
+        (empty($request->perPage)) ? $request->perPage = 10 : '';
+        (empty($request->filtering)) ? $request->filtering = $defaultFilter : '';
+
         $products = Product::orderBy($request->sort, $request->direction)
         ->when(!empty($request->search), function ($query) use ($request){
             return $query->where('name', 'LIKE', '%'.$request->search.'%')
                 ->orWhere('sku', 'LIKE', '%'.$request->search.'%');
-        })
-        ->paginate($request->perPage)
+        });
+        if(!empty($request->filter)){
+            foreach($request->filter as $key=>$filter){
+                $products = $products->whereIn($key, $filter);
+            }
+        }
+        $products = $products->paginate($request->perPage)
         ->onEachSide(-1)
         ->withQueryString()
         ->through(fn ($product) => [
@@ -69,8 +84,9 @@ class ProductController extends Controller
                 'search' => $request->form,
                 'perPage' => $request->perPage,
                 'sort' => $request->sort,
-                'direction' => $request->direction
+                'direction' => $request->direction,
             ],
+            'filtering' => $request->filtering,
             'tableHeader' => $tableHeader,
             'customFilter' => $customFilter,
             'products' => $products,
